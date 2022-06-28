@@ -8,10 +8,14 @@ folium.TileLayer('Stamen Toner').add_to(m)          #черно-белая (по
 folium.TileLayer('Stamen Watercolor').add_to(m)     #вода и суша
 folium.TileLayer('Stamen Terrain').add_to(m)        #горы и леса
 
+icon_url = '/Users/ruslan/PycharmProjects/maps/img/alfa.png'
+icon = folium.features.CustomIcon(icon_url,icon_size=(20,28))  # Creating a custom Icon
+
+
 #создаем объект маркера
 capital_m = folium.Marker(location = [56.838924, 60.605701],        #координаты маркера
                             tooltip = 'Уральское ГУ Банка России',  #всплывающая подсказка
-                            #icon=folium.Icon(icon="cloud"),
+                            icon=icon,
                             popup = 'Екатеринбург'                  #подпись по клику
                             )
 #кастомизация маркеров
