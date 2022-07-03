@@ -1,12 +1,9 @@
-from feature_selector import FeatureSelector
+import os
+from dadata import Dadata
 
-n = int(input())
+token = os.environ.get('DADATA_TOKEN')
+secret = os.environ.get('DADATA_SECRET')
 
-for i in range(1,n+1):
-    kol = (i+1)*2-1
-    for m in range(kol):
-        if m < n:
-            print(m,end='')
-        else:
-            print(m,end='')
-    print()
+with Dadata(token, secret) as dadata:
+    result = dadata.clean("address", "Уфа театральная 3")
+    print(result)
