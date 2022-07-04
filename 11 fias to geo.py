@@ -1,4 +1,5 @@
 # https://github.com/hflabs/dadata-py
+# пакетное преобразование fias - кодов в географические координаты
 import os
 from dadata import Dadata
 import pandas as pd

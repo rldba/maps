@@ -1,4 +1,5 @@
 # https://yandex.ru/dev/maps/geocoder/
+# https://developer.tech.yandex.ru/services/
 
 import os
 from yandex_geocoder import Client
@@ -7,8 +8,9 @@ import webbrowser
 
 yandex_geo_api_key = os.environ.get("YandexGeoApiKey")
 lat,lon = 0.0, 0.0
-adress = "Уфа Театральная 3"
-# adress = "Екатеринбург Циолковского 18"
+# adress = "Уфа Театральная 3"
+adress = "115035, МОСКВА 35, УЛ БАЛЧУГ, 2"
+# adress = "Екат Циолковского 18"
 # adress = "Белорецк Сорока Павших 15А"
 
 client = Client(yandex_geo_api_key)
