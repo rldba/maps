@@ -51,7 +51,7 @@ df_vtb_bk.reset_index(drop=True, inplace=True)
 df_alfa_bk.reset_index(drop=True, inplace=True)
 
 #создаю карту
-m = folium.Map(location=[56.838924, 60.605701], zoom_start=6, tiles='OpenStreetMap')
+m = folium.Map(location=[56.901309, 59.947226], zoom_start=12, tiles='OpenStreetMap')
 folium.TileLayer('CartoDB positron').add_to(m)
 folium.TileLayer('CartoDB dark_matter').add_to(m)
 

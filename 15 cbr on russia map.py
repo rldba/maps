@@ -35,27 +35,18 @@ for _, r in gpd_russia.iterrows():
 layer_russia.add_to(m)
 #*****************************************************************************************
 
-#******************************** СЛОЙ С бонкоматами Alfa ************************************
+#******************************** СЛОЙ С геометками ТУ ************************************
 
 layer_tu = folium.FeatureGroup(name='ТУ Банка России', show = False)
 
 for i, r in df_cbr_str.iterrows():
 
-    # if r['LEVEL'] == 1:
-    #     icon_url = '/Users/ruslan/PycharmProjects/maps/img/cbr_lvl1_.png'
-    # elif r['LEVEL'] == 2:
-    #     icon_url = '/Users/ruslan/PycharmProjects/maps/img/cbr_lvl2_.png'
-    # else:
-    #     icon_url = '/Users/ruslan/PycharmProjects/maps/img/cbr_lvl3_.png'
-    #
-    # icon = folium.features.CustomIcon(icon_url, icon_size=(25, 40))  # Creating a custom Icon
-
     if r['LEVEL'] == 1:
-        icon = folium.Icon(color="red")
+        icon = folium.Icon(icon='home', color="red") # star flag bookmark
     elif r['LEVEL'] == 2:
-        icon = folium.Icon(color="green")
+        icon = folium.Icon(icon='home', color="green")
     else:
-        icon = folium.Icon(color="blue")
+        icon = folium.Icon(icon='home', color="blue")
 
     tu_point = folium.Marker(location=[r['LAT'], r['LON']],  # координаты маркера
                                       tooltip=r['NAIM'],  # всплывающая подсказка
@@ -68,7 +59,34 @@ layer_tu.add_to(m)
 
 #*****************************************************************************************
 
-m.keep_in_front(layer_tu,layer_russia)
+#******************************** СЛОЙ С геометками ТУ кластеризация и кастомизация************************************
+
+layer_tu_cl = MarkerCluster(name='Кластеризация ТУ Банка России', show = False)
+
+for i, r in df_cbr_str.iterrows():
+
+    if r['LEVEL'] == 1:
+        icon_url = '/Users/ruslan/PycharmProjects/maps/img/cbr_lvl1_.png'
+    elif r['LEVEL'] == 2:
+        icon_url = '/Users/ruslan/PycharmProjects/maps/img/cbr_lvl2_.png'
+    else:
+        icon_url = '/Users/ruslan/PycharmProjects/maps/img/cbr_lvl3_.png'
+
+    icon = folium.features.CustomIcon(icon_url, icon_size=(25, 40))  # Creating a custom Icon
+
+    tu_point = folium.Marker(location=[r['LAT'], r['LON']],  # координаты маркера
+                                      tooltip=r['NAIM'],  # всплывающая подсказка
+                                      icon=icon,
+                                      popup=df_cbr_str.loc[i,'ADRESS']  # подпись по клику
+                                      )
+            # добавляем объект маркер на карту
+    tu_point.add_to(layer_tu_cl)
+layer_tu_cl.add_to(m)
+
+#*****************************************************************************************
+
+
+m.keep_in_front(layer_tu_cl, layer_tu,layer_russia)
 controlLayers = folium.LayerControl(autoZIndex=False, name = 'test')
 controlLayers.add_to(m)
 #
