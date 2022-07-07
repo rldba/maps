@@ -9,9 +9,9 @@ import webbrowser
 yandex_geo_api_key = os.environ.get("YandexGeoApiKey")
 lat,lon = 0.0, 0.0
 # adress = "Уфа Театральная 3"
-adress = "115035, МОСКВА 35, УЛ БАЛЧУГ, 2"
+# adress = "115035, МОСКВА 35, УЛ БАЛЧУГ, 2"
 # adress = "Екат Циолковского 18"
-# adress = "Белорецк Сорока Павших 15А"
+adress = "Белорецк Сорока Павших 15А"
 
 client = Client(yandex_geo_api_key)
 coordinates = client.coordinates(adress)
