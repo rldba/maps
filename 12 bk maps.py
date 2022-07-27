@@ -3,6 +3,7 @@ import pandas as pd
 import folium
 import webbrowser
 from folium.plugins import MarkerCluster
+from folium.plugins import FastMarkerCluster
 pd.set_option('display.max_columns', None)
 
 #Свердловская обл общая граница
@@ -41,11 +42,11 @@ df_vtb_bk = pd.read_excel('~/PycharmProjects/maps/DataSets/svd/svd_vtb_bk_geo.xl
 df_sber_bk = pd.read_excel('~/PycharmProjects/maps/DataSets/svd/svd_sber_bk_geo.xlsx')
 
 #******************************** отбираем только один муниципальный район - Первоуральск************************************
-oktmo_2lvl = 753
-df_sber_bk = df_sber_bk.loc[df_sber_bk['OKTMO2'] == oktmo_2lvl]
-df_vtb_bk = df_vtb_bk.loc[df_vtb_bk['OKTMO2'] == oktmo_2lvl]
-df_alfa_bk = df_alfa_bk.loc[df_alfa_bk['OKTMO2'] == oktmo_2lvl]
-
+# oktmo_2lvl = 753
+# df_sber_bk = df_sber_bk.loc[df_sber_bk['OKTMO2'] == oktmo_2lvl]
+# df_vtb_bk = df_vtb_bk.loc[df_vtb_bk['OKTMO2'] == oktmo_2lvl]
+# df_alfa_bk = df_alfa_bk.loc[df_alfa_bk['OKTMO2'] == oktmo_2lvl]
+#
 df_sber_bk.reset_index(drop=True, inplace=True)
 df_vtb_bk.reset_index(drop=True, inplace=True)
 df_alfa_bk.reset_index(drop=True, inplace=True)
@@ -107,20 +108,20 @@ layer_L4.add_to(m)
 
 #******************************** СЛОЙ С бонкоматами Alfa ************************************
 
-icon_url = '/Users/ruslan/PycharmProjects/maps/img/alfabank_web_logo.png'
-#layer_alfa = MarkerCluster(name='Alfa Bank', show=False)
-layer_alfa = folium.FeatureGroup(name='Alfa Bank', show = False)
-
-for i, r in df_alfa_bk.iterrows():
-    icon = folium.features.CustomIcon(icon_url, icon_size=(20, 28))  # Creating a custom Icon
-    alfa_point = folium.Marker(location=[df_alfa_bk.loc[i,'LAT'], df_alfa_bk.loc[i,'LON']],  # координаты маркера
-                                      tooltip=df_alfa_bk.loc[i,'PLACE'],  # всплывающая подсказка
-                                      icon=icon,
-                                      popup=df_alfa_bk.loc[i,'VIDOP']  # подпись по клику
-                                      )
-            # добавляем объект маркер на карту
-    alfa_point.add_to(layer_alfa)
-layer_alfa.add_to(m)
+# icon_url = '/Users/ruslan/PycharmProjects/maps/img/alfabank_web_logo.png'
+# #layer_alfa = MarkerCluster(name='Alfa Bank', show=False)
+# layer_alfa = folium.FeatureGroup(name='Alfa Bank', show = False)
+#
+# for i, r in df_alfa_bk.iterrows():
+#     icon = folium.features.CustomIcon(icon_url, icon_size=(20, 28))  # Creating a custom Icon
+#     alfa_point = folium.Marker(location=[df_alfa_bk.loc[i,'LAT'], df_alfa_bk.loc[i,'LON']],  # координаты маркера
+#                                       tooltip=df_alfa_bk.loc[i,'PLACE'],  # всплывающая подсказка
+#                                       icon=icon,
+#                                       popup=df_alfa_bk.loc[i,'VIDOP']  # подпись по клику
+#                                       )
+#             # добавляем объект маркер на карту
+#     alfa_point.add_to(layer_alfa)
+# layer_alfa.add_to(m)
 
 
 #*****************************************************************************************
@@ -147,23 +148,25 @@ layer_vtb.add_to(m)
 #******************************** СЛОЙ С бонкоматами sber ************************************
 
 icon_url = '/Users/ruslan/PycharmProjects/maps/img/sber_web_logo.png'
-#layer_sber = MarkerCluster(name='Sberbank', show=False)
-layer_sber = folium.FeatureGroup(name='Sberbank', show=False)
+# layer_sber = FastMarkerCluster(name='Sberbank', show=False)
+# layer_sber = folium.FeatureGroup(name='Sberbank', show=False)
 
-for i, r in df_sber_bk.iterrows():
-    icon = folium.features.CustomIcon(icon_url, icon_size=(20, 28))  # Creating a custom Icon
-    sber_point = folium.Marker(location=[df_sber_bk.loc[i,'LAT'], df_sber_bk.loc[i,'LON']],  # координаты маркера
-                                      tooltip=df_sber_bk.loc[i,'PLACE'],  # всплывающая подсказка
-                                      icon=icon,
-                                      popup=df_sber_bk.loc[i,'VIDOP']  # подпись по клику
-                                      )
-    # sber_point = folium.CircleMarker(location=[df_sber_bk.loc[i,'LAT'], df_sber_bk.loc[i,'LON']],  # координаты маркера
-    #                                 tooltip=df_sber_bk.loc[i,'PLACE'],  # всплывающая подсказка
-    #                                 popup=df_sber_bk.loc[i, 'VIDOP'],  # подпись по клику
-    #                                 radius=5, fill_color='green', color='gray', fill_opacity=0.9)
-    # добавляем объект маркер на слой
-    sber_point.add_to(layer_sber)
-layer_sber.add_to(m)
+m.add_child(FastMarkerCluster(df_sber_bk[['LAT', 'LON']].values.tolist()))
+
+# for i, r in df_sber_bk.iterrows():
+#     icon = folium.features.CustomIcon(icon_url, icon_size=(20, 28))  # Creating a custom Icon
+#     sber_point = folium.Marker(location=[df_sber_bk.loc[i,'LAT'], df_sber_bk.loc[i,'LON']],  # координаты маркера
+#                                       tooltip=df_sber_bk.loc[i,'PLACE'],  # всплывающая подсказка
+#                                       icon=icon,
+#                                       popup=df_sber_bk.loc[i,'VIDOP']  # подпись по клику
+#                                       )
+#     # sber_point = folium.CircleMarker(location=[df_sber_bk.loc[i,'LAT'], df_sber_bk.loc[i,'LON']],  # координаты маркера
+#     #                                 tooltip=df_sber_bk.loc[i,'PLACE'],  # всплывающая подсказка
+#     #                                 popup=df_sber_bk.loc[i, 'VIDOP'],  # подпись по клику
+#     #                                 radius=5, fill_color='green', color='gray', fill_opacity=0.9)
+#     # добавляем объект маркер на слой
+#     sber_point.add_to(layer_sber)
+# layer_sber.add_to(m)
 
 
 #*****************************************************************************************

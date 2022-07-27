@@ -45,7 +45,7 @@ df_rezh_pko = df_rezh.loc[df_rezh['TYPE'] == 'PKO']             # подразд
 df_rezh_uto = df_rezh.loc[df_rezh['TYPE'] == 'UTO']             # удаленные точки банковского обслуживания
 df_rezh_bk = df_rezh.loc[df_rezh['TYPE'] == 'BK']               # банкоматы (вкл выдачу наличных) с исп. ПК
 df_rezh_bk_ = df_rezh.loc[df_rezh['TYPE'] == 'BK_']             # банкоматы без исп. ПК
-df_rezh_post = df_rezh.loc[df_rezh['TYPE'] == 'RUSSIA_POST']    #отделения АО "Почта России"
+df_rezh_post = df_rezh.loc[df_rezh['TYPE'] == 'RUSSIA_POST']    # отделения АО "Почта России"
 df_rezh_cash = df_rezh.loc[df_rezh['TYPE'] == 'CASH_OUT']       # выдача наличных с POS-терминала
 df_rezh_pay = df_rezh.loc[df_rezh['TYPE'] == 'PAY_POINT']       # точки, предоставляющие возможность оплаты наличными деньгами
 df_rezh_mfo = df_rezh.loc[df_rezh['TYPE'] == 'MFO']             # подразделения микрофинансовых организаций
@@ -55,6 +55,7 @@ df_rezh_ins = df_rezh.loc[df_rezh['TYPE'] == 'INS']             # подразд
 m = folium.Map(location=[57.373777, 61.391648], zoom_start=10, tiles='OpenStreetMap')
 folium.TileLayer('CartoDB positron').add_to(m)
 folium.TileLayer('CartoDB dark_matter').add_to(m)
+
 
 #******************************** СЛОЙ С ГРАНИЦАМИ РАЙОНОВ И ОКРУГОВ С ПОДПИСЯМИ ************************************
 layer_L2 = folium.FeatureGroup(name='Районы и округа (L2)')
